@@ -47,8 +47,9 @@
 		var user = 'oakland-admin';
 		//tableName needs to be an array containing the names of the tables within the vizjson
 		//it's used for the querying functions & modal that are not in this file
+		//don't know what the name of this table is
 		var layerSource = [{
-			tableName: ["sewergrid"],
+			tableName: ["name?"],
 			vizjson: "https://eulamue.cartodb.com/api/v2/viz/e2427020-0e2d-11e5-8e21-0e018d66dc29/viz.json"
 		}]
 		// Initialize map center and zoom level
