@@ -9,24 +9,20 @@
 		<!-- CSS Styling -->
 		<style type="text/css">
 			html, body, #map {
-				height: 97.8%;
+				height: 97.9%;
 				padding: 0;
 				margin: 0;
 			}
 		</style>
 	</head>
 	<!-- Navigation Bar -->
-	<nav class="navbar navbar-default" style="margin:0; border:0; padding-right:0px; background-color:#FFFFFF">
-		<div class="navbar-header">
-			<div class="navbar-brand">BEC Navigation</div>
+	<nav class="navbar navbar-default" style="margin:0; border:0; padding-right:0px; height:50px; background-color:#FFFFFF">
+		<div class="navbar-header" style="min-width:270px">
+			<div class="navbar-brand">Sewer Sheets / Grade Sheets</div>
 		</div>
-		<div>
-			<ul class="nav navbar-nav">
-				<form class="navbar-form" style="padding-left:0; padding-right:0">
-					<input type="text" class="form-control" placeholder="Search By Address" id="pac-input" style="width:400px">	
-				</form>
-			</ul>
-		</div>
+		<form class="navbar-form">
+			<input type="text" class="form-control" placeholder="Search By Address" id="pac-input" style="width:450px">	
+		</form>
 	</nav>
     <div id="map"></div>
 	
@@ -47,16 +43,15 @@
 		var user = 'oakland-admin';
 		//tableName needs to be an array containing the names of the tables within the vizjson
 		//it's used for the querying functions & modal that are not in this file
-		//don't know what the name of this table is
 		var layerSource = [{
-			tableName: ["name?"],
-			vizjson: "https://eulamue.cartodb.com/api/v2/viz/e2427020-0e2d-11e5-8e21-0e018d66dc29/viz.json"
+			tableName: ["sewergrid"],
+			vizjson: "https://oakland.cartodb.com/u/oakland-admin/api/v2/viz/5a072d22-2a5c-11e5-a61d-42010a149c0c/viz.json"
 		}]
 		// Initialize map center and zoom level
 		var options = {
-					center: [37.8,-122.21], // Oakland
-					zoom: 12,
-					maxZoom: 21
+			center: [37.8,-122.21], // Oakland
+			zoom: 12,
+			maxZoom: 21
 		}
 		
 		// Instantiate map on specified DOM element
@@ -111,6 +106,13 @@
 				map_object.setView(new L.LatLng(place.geometry.location.lat(), place.geometry.location.lng()), 17);
 				marker = new L.marker([place.geometry.location.lat(), place.geometry.location.lng()],{clickable:false});
 				map_object.addLayer(marker);
+			});
+			
+			$('#pac-input').keypress(function(e){
+				if(e.which == 13){
+					google.maps.event.trigger(searchBox,'place_changed');
+					return false;
+				}
 			});
 		}
 		<!--Geocoder End-->
